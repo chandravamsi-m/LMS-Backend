@@ -4,8 +4,6 @@ import com.studentportal.filter.JwtAuthFilter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.ProviderManager;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.SecurityFilterChain;
@@ -29,6 +27,7 @@ public class SecurityConfig {
                                 "/auth/google",
                                 "/oauth2/**"
                         ).permitAll() // ✅ Don't permit "/auth/oauth-success"
+                        .requestMatchers("/api/syllabus").permitAll()
                         .anyRequest().authenticated()
                 )
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
