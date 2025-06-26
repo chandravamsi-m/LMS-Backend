@@ -32,9 +32,9 @@ public class OAuth2LoginSuccessHandler implements AuthenticationSuccessHandler {
         OAuth2User oAuth2User = (OAuth2User) authentication.getPrincipal();
         String email = oAuth2User.getAttribute("email");
 
-        Optional<User> optionalUser = userRepository.findByMobile(email);
+        Optional<User> optionalUser = userRepository.findByUserId(email);
         User user = optionalUser.orElse(
-                User.builder().mobile(email).isVerified(true).build()
+                User.builder().userId(email).isVerified(true).build()
         );
         user.setVerified(true);
         userRepository.save(user);

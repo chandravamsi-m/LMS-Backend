@@ -53,9 +53,9 @@ public class AuthController {
 
         String email = principal.getAttribute("email");
 
-        Optional<User> optionalUser = userRepository.findByMobile(email);
+        Optional<User> optionalUser = userRepository.findByUserId(email);
         User user = optionalUser.orElseGet(() ->
-                User.builder().mobile(email).isVerified(true).build()
+                User.builder().userId(email).isVerified(true).build()
         );
 
         user.setVerified(true);

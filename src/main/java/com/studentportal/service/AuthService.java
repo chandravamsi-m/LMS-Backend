@@ -22,27 +22,27 @@ public class AuthService {
 
     public String requestOtp(OtpRequest request) {
         String otp = String.valueOf(new Random().nextInt(899999) + 100000);
-        OtpStore.storeOtp(request.getMobile(), otp);
-        System.out.println("OTP for " + request.getMobile() + ": " + otp); // mock
+        OtpStore.storeOtp(request.getUserId(), otp);
+        System.out.println("OTP for " + request.getUserId() + ": " + otp); // mock
         return "OTP sent successfully";
     }
 
     public String verifyOtp(AuthRequest request) {
-        String storedOtp = OtpStore.getOtp(request.getMobile());
+        String storedOtp = OtpStore.getOtp(request.getUserId());
         if (storedOtp == null || !storedOtp.equals(request.getOtp())) {
             throw new RuntimeException("Invalid OTP");
         }
 
         // Register or update user
-        Optional<User> optionalUser = userRepository.findByMobile(request.getMobile());
+        Optional<User> optionalUser = userRepository.findByUserId(request.getUserId());
         User user = optionalUser.orElse(User.builder()
-                .mobile(request.getMobile())
+                .userId(request.getUserId())
                 .isVerified(true)
                 .build());
         user.setVerified(true);
         userRepository.save(user);
 
-        OtpStore.removeOtp(request.getMobile());
-        return jwtService.generateToken(request.getMobile());
+        OtpStore.removeOtp(request.getUserId());
+        return jwtService.generateToken(request.getUserId());
     }
 }

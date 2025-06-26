@@ -6,5 +6,5 @@ import lombok.Setter;
 @Getter
 @Setter
 public class OtpRequest {
-    private String mobile;
+    private String userId;
 }

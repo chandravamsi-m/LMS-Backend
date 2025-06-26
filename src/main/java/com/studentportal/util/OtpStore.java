@@ -6,15 +6,15 @@ import java.util.Map;
 public class OtpStore {
     private static final Map<String, String> otpMap = new HashMap<>();
 
-    public static void storeOtp(String mobile, String otp) {
-        otpMap.put(mobile, otp);
+    public static void storeOtp(String userId, String otp) {
+        otpMap.put(userId, otp);
     }
 
-    public static String getOtp(String mobile) {
-        return otpMap.get(mobile);
+    public static String getOtp(String userId) {
+        return otpMap.get(userId);
     }
 
-    public static void removeOtp(String mobile) {
-        otpMap.remove(mobile);
+    public static void removeOtp(String userId) {
+        otpMap.remove(userId);
     }
 }
